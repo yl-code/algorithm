@@ -1,3 +1,3 @@
-# leetcode-javascript
+## Learning Algorithm
 
-leetcode 刷题记录
+记录学习算法的过程
