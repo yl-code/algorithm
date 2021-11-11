@@ -18,24 +18,22 @@
  * @return {ListNode}
  */
 var detectCycle = function (head) {
-  if (!head) return null;
+  if (!head || !head.next) return null;
 
+  let fast = head;
   let slow = head;
-  let fast = head.next;
 
-  while (slow !== fast && fast && fast.next) {
+  do {
     fast = fast.next.next;
     slow = slow.next;
-  }
+  } while (slow !== fast && fast && fast.next);
 
   if (fast && fast.next) {
     fast = head;
-
-    while (fast !== slow) {
+    while (slow !== fast) {
       fast = fast.next;
       slow = slow.next;
     }
-    console.log(fast.val, slow.val);
 
     return fast;
   }
