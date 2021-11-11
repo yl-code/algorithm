@@ -1,7 +1,15 @@
-const str_true = "({}(({}()[]))[])";
-const str_false = "({)[}]";
+/*
+ * @lc app=leetcode.cn id=20 lang=javascript
+ *
+ * [20] 有效的括号
+ */
 
-const isValid1 = function (s) {
+// @lc code=start
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var isValid1 = function (s) {
   while (s.includes("()") || s.includes("{}") || s.includes("[]")) {
     s = s.replace("()", "");
     s = s.replace("[]", "");
@@ -10,9 +18,8 @@ const isValid1 = function (s) {
 
   return s === "" ? true : false;
 };
-console.log(isValid1(str_false));
 
-const isValid2 = (str) => {
+const isValid = (str) => {
   const dict = {
     "{": "}",
     "[": "]",
@@ -37,5 +44,4 @@ const isValid2 = (str) => {
 
   return !stack.length;
 };
-
-console.log(isValid2(str_false));
+// @lc code=end
