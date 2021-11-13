@@ -17,18 +17,15 @@
  * @return {ListNode}
  */
 // 递归
-var reverseList = (head) => {
+const reverseList = (head) => {
   if (!head || !head.next) return head;
 
-  // tail 即为翻转后的尾节点
+  // tail 就是 head 后面的链表翻转后的最后一个节点
   const tail = head.next;
-
-  // reverseList 递归到最底层，
-  // 开始回溯时，返回的节点就是正序的最后一个节点，
-  // 也是逆序的第一个节点
-  const newHead = reverseList(head.next);
-  head.next = null;
+  const newHead = reverseList(tail);
   tail.next = head;
+  head.next = null; // 避免输出的 链表有环
+
   return newHead;
 };
 
