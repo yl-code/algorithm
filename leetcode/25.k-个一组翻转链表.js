@@ -55,11 +55,11 @@ var reverseKGroup = function (head, k) {
   // tail 为每 k 组链表节点翻转之后的尾节点
   let tail = current.next;
 
-  // 当翻转后返回的头节点 与 传入的节点 不想等，则说明本轮翻转成功
+  // 当翻转后返回的头节点 与 传入的节点 不相等，则说明本轮翻转成功
   // 当相等时说明翻转结束，剩余的节点不足 k 个 或者 节点全部翻转完成了
   //
   // current.next = 翻转后返回的头节点
-  while ((current.next = __reverseN(current.next, k)) !== tail) {
+  while ((current.next = __reverseN(current.next, k)) !== current.next) {
     current = tail;
     tail = current.next;
   }
