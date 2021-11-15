@@ -65,7 +65,7 @@ const printListNode = (listNode) => {
   let listNodeValue = [];
 
   // 翻转后的链表
-  listNode = recursionReverseList(listNode, 3);
+  listNode = recursionReverseList(listNode, 10);
 
   while (listNode !== null) {
     listNodeValue.push(listNode.value);
