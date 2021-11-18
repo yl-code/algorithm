@@ -18,28 +18,27 @@
  * @param {Node} head
  * @return {Node}
  */
-var copyRandomList1 = function (head) {
-  if (head === null) {
-    return null;
+var copyRandomList2 = function (head) {
+  if (!head) return head;
+
+  for (let curr = head; curr !== null; curr = curr.next.next) {
+    const newNode = new Node(curr.val, curr.next, null);
+    curr.next = newNode;
   }
 
-  for (let node = head; node !== null; node = node.next.next) {
-    const nodeNew = new Node(node.val, node.next, null);
-    node.next = nodeNew;
+  for (let curr = head; curr !== null; curr = curr.next.next) {
+    curr.next.random = !!curr.random ? curr.random.next : null;
   }
 
-  for (let node = head; node !== null; node = node.next.next) {
-    const nodeNew = node.next;
-    nodeNew.random = node.random !== null ? node.random.next : null;
+  const new_copy_head = head.next;
+  let copy;
+  for (let curr = head; curr !== null; curr = curr.next) {
+    copy = curr.next;
+    curr.next = curr.next.next;
+    copy.next = !!copy.next ? copy.next.next : null;
   }
 
-  const headNew = head.next;
-  for (let node = head; node !== null; node = node.next) {
-    const nodeNew = node.next;
-    node.next = node.next.next;
-    nodeNew.next = nodeNew.next !== null ? nodeNew.next.next : null;
-  }
-  return headNew;
+  return new_copy_head;
 };
 
 var copyRandomList = function (head) {
@@ -66,9 +65,10 @@ var copyRandomList = function (head) {
       current.random = current.random.next;
     }
 
-    if (current.next) {
-      current = current.next.next;
-    }
+    // 这样写也比较帅
+    // (current = current.next) && (current = current.next);
+
+    current = current.next ? current.next.next : null;
   }
 
   // 3、遍历链表，将链表拆分为两条独立链表
@@ -79,7 +79,7 @@ var copyRandomList = function (head) {
     copy = current.next;
 
     current.next = copy.next;
-    if (copy.next) copy.next = copy.next.next;
+    if (current.next) copy.next = current.next.next;
 
     current = current.next;
   }
