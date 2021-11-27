@@ -9,6 +9,36 @@
  * @param {string} s
  * @return {boolean}
  */
+
+// 用栈的思维解决这道题
+const isValid = (str) => {
+  let i = 0;
+  let stack = [];
+  while (i < str.length) {
+    switch (str[i]) {
+      case "(":
+      case "{":
+      case "[":
+        stack.push(str[i]);
+        break;
+      case ")":
+        if (!stack.length || stack.pop() !== "(") return false;
+        break;
+      case "}":
+        if (!stack.length || stack.pop() !== "{") return false;
+        break;
+      case "]":
+        if (!stack.length || stack.pop() !== "[") return false;
+        break;
+    }
+
+    i++;
+  }
+
+  return !stack.length;
+};
+
+// 取巧的方法
 var isValid1 = function (s) {
   while (s.includes("()") || s.includes("{}") || s.includes("[]")) {
     s = s.replace("()", "");
@@ -19,7 +49,7 @@ var isValid1 = function (s) {
   return s === "" ? true : false;
 };
 
-const isValid = (str) => {
+const isValid2 = (str) => {
   const dict = {
     "{": "}",
     "[": "]",
@@ -44,4 +74,5 @@ const isValid = (str) => {
 
   return !stack.length;
 };
+
 // @lc code=end
