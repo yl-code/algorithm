@@ -14,7 +14,7 @@ var lemonadeChange = function (bills) {
     ten = 0;
 
   for (let index = 0; index < bills.length; index++) {
-    bill = bills[index];
+    let bill = bills[index];
 
     if (bill === 5) {
       five += 1;
