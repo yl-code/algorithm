@@ -9,7 +9,7 @@
  * @param {number[][]} matrix
  * @return {number[]}
  */
-var spiralOrder = function (matrix) {
+var spiralOrder_1 = function (matrix) {
   let top = 0,
     right = matrix[0].length - 1,
     bottom = matrix.length - 1,
@@ -35,42 +35,40 @@ var spiralOrder = function (matrix) {
   return res;
 };
 
-var spiralOrder_2 = function (matrix) {
+var spiralOrder = function (matrix) {
   const maxRow = matrix.length;
   const maxColumn = matrix[0].length;
   const res = [];
 
   for (let count = 0, x = -1, y = 0, loop = 0, allCount = maxRow * maxColumn; count < allCount; loop++) {
     // 👉
-    while (count <= allCount && x + 1 <= maxColumn - 1 - loop) {
+    while (count < allCount && x + 1 <= maxColumn - 1 - loop) {
       count++;
       x++;
-      res.push(matrix[x][y]);
+      res.push(matrix[y][x]);
     }
 
     // 👇
     while (count < allCount && y + 1 <= maxRow - 1 - loop) {
       count++;
       y++;
-      res.push(matrix[x][y]);
+      res.push(matrix[y][x]);
     }
 
     // 👈
     while (count < allCount && x - 1 >= loop) {
       count++;
       x--;
-      res.push(matrix[x][y]);
+      res.push(matrix[y][x]);
     }
 
     // 👆
     while (count < allCount && y - 1 > loop) {
       count++;
       y--;
-      res.push(matrix[x][y]);
+      res.push(matrix[y][x]);
     }
   }
-
-  console.log(res);
   return res;
 };
 // @lc code=end
