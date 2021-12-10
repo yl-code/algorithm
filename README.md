@@ -1,3 +1,3 @@
-## Learning Algorithm 记录学习算法的过程
+## Learning Algorithm
 
 - [yuque](https://www.yuque.com/yl-code/sf)
