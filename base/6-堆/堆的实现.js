@@ -28,9 +28,6 @@ class BigTopHeap {
     }
   };
 
-  /**
-   * 添加元素
-   */
   push = (val) => {
     this.data[this.count++] = val;
     this.shiftUp(this.count - 1);
@@ -67,7 +64,7 @@ class BigTopHeap {
    * 弹出元素
    *
    * 原本是直接用 堆 的最后一个元素值，直接覆盖掉 堆顶元素值
-   * 此处偷个懒，直接调换两个位置的值，为后面写堆排序准备
+   * 此处偷个懒，直接调换两个位置的值，如果将所有堆内值都 pop 出去，那么数组就直接是有序数列了
    */
   pop = () => {
     if (!this.getSize()) return;
@@ -93,7 +90,7 @@ bigTopHeap.push(9);
 bigTopHeap.push(7);
 bigTopHeap.push(6);
 bigTopHeap.push(4);
-bigTopHeap.output();
+bigTopHeap.output(); // 9 7 6 1 5 3 4
 bigTopHeap.pop();
 bigTopHeap.pop();
 bigTopHeap.pop();
@@ -101,7 +98,4 @@ bigTopHeap.pop();
 bigTopHeap.pop();
 bigTopHeap.pop();
 bigTopHeap.pop();
-
 console.log(bigTopHeap.data); // 1, 3, 4, 5, 6, 7, 9
-
-// bigTopHeap.pop();
