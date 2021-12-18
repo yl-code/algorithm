@@ -81,7 +81,7 @@ class Heap {
  * @param {number} n
  * @return {number}
  *
- * 思路：
+ * 思路一：
  *    根据题目要求和示例1，可知题目要返回的是 不重复的 升序排列的 丑数序列 中的第 n 个丑数
  *
  *    那么就可以生成这样一个丑数序列，然后返回第 n 个数字
@@ -90,7 +90,7 @@ class Heap {
  *
  *    所以可以用 小顶堆 来解题
  */
-var nthUglyNumber = function (n) {
+var nthUglyNumber_1 = function (n) {
   const minHeap = new Heap((x, y) => x < y);
 
   // 题目提示 1 也是丑数
@@ -122,5 +122,43 @@ var nthUglyNumber = function (n) {
     }
   }
   return res;
+};
+
+/**
+ * 思路二
+ * 就是搞三个指针 p2 p3 p5，初始都指向第一个丑数 1
+ * 每次循环，三个指针对应的丑数分别乘上 2 3 5，也就是 p2*2, p3*3, p5*5
+ * 取出三个乘积中的最小值，放入集合
+ * 为了不产生重复的丑数，每次将符合条件的丑数放入集合后，将产生该丑数的指针往后移动一步
+ * 如：p5*5 为本次最小值，p5++
+ * 如果：p3*3 与 p5*5 同为最小值，那么 p3++, p5++
+ *
+ */
+var nthUglyNumber = function (n) {
+  const res = new Array(n + 1).fill(0);
+
+  res[1] = 1;
+
+  let p2 = 1,
+    p3 = 1,
+    p5 = 1;
+
+  for (let i = 2; i <= n; i++) {
+    const num = Math.min(res[p2] * 2, res[p3] * 3, res[p5] * 5);
+    res[i] = num;
+    console.log(res[i]);
+
+    if (num === res[p2] * 2) {
+      p2++;
+    }
+    if (num === res[p3] * 3) {
+      p3++;
+    }
+    if (num === res[p5] * 5) {
+      p5++;
+    }
+  }
+
+  return res[n];
 };
 // @lc code=end
