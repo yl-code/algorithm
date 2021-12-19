@@ -90,12 +90,20 @@ var topKFrequent = function (words, k) {
   });
 
   // 根据题目要求
-  // 如果单词出现的次数相同的，按照字母大小，升序排列
+  // 如果单词出现的次数相同的，按照字母顺序升序排列
   // 小顶堆的比较函数
   const compare = (word1, word2) => {
     if (freq[word1] !== freq[word2]) {
+      // 如何设计堆的比较函数
+      // 此题中：最后返回的数据是，前 K 个出现次数最多的单词
+      // 且单词出现次数相同是，按照字母排序由小到大
+      //
+      // 结合此题所用的堆的调整函数 shiftUp 可知
+      // word1 出现次数比 word2 出现次数少时，才需要继续往上调整，准备将来被 pop 掉
       return freq[word1] > freq[word2];
     } else {
+      // word1 与 word2 出现次数相同时
+      // 按照字母顺序，顺序在后面的单词，才需要继续往上调整，准备将来被 pop 掉
       return word1 < word2;
     }
   };
