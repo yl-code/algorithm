@@ -4,13 +4,9 @@ class UnionSet {
     // 每个元素对应的 所在集合的 根节点
     this.root = new Array(n);
 
-    // 每个元素对应的 所在集合的 元素数量
-    this.size = new Array(n);
-
     // 初始化时，集合中每个元素的根节点为自己，所以每个元素所在集合的元素数量为 1
     for (let i = 0; i < n; i++) {
       this.root[i] = i;
-      this.size[i] = 1;
     }
   }
 
