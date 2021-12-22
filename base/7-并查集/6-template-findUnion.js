@@ -26,7 +26,7 @@ class UnionSet {
 
   //   return root;
   // };
-  find = (x) => (this.root[x] = this.root[x] === x ? x : this.find[this.root[x]]);
+  find = (x) => (this.root[x] = this.root[x] === x ? x : this.find(this.root[x]));
 
   // 连通 a, b 两点
   // 也就是合并 a, b 所在的两个集合
