@@ -1,3 +1,3 @@
 ## Learning Algorithm
 
-- [yuque](https://www.yuque.com/yl-code/sf)
+- [语雀文档](https://www.yuque.com/yl-code/sf)
