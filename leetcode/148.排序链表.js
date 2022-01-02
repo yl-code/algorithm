@@ -12,18 +12,84 @@
  *     this.next = (next===undefined ? null : next)
  * }
  */
+
 /**
- * @param {ListNode} head
- * @return {ListNode}
+ * 解法二
  *
- * 思路很简单，借鉴快速排序的思想
+ * 使用归并排序的思想解题
+ *
+ * 先将链表从中间拆开，将两条链表递归排完序后，再进行归并操作，连接成一个完整链表
+ *
+ */
+const sortList = (head) => {
+  const mergeSort = (head, n) => {
+    // 当链表节点 <= 1 时，直接返回
+    if (n <= 1) return head;
+
+    // 计算 左半段 与 右半段 链表节点个数
+    let l = n >> 1;
+    let r = n - l;
+
+    // 根据 左半段链表的个数，找到中间位置节点
+    let curr = head;
+    for (let i = 1; i < l; i++) curr = curr.next;
+
+    // 记录左右半段链表的头节点
+    let left = head;
+    let right = curr.next;
+
+    //断开链表
+    curr.next = null;
+
+    // 递归地将左右半段链表分别进行排序
+    left = mergeSort(left, l);
+    right = mergeSort(right, r);
+
+    // 下面就是按照归并排序的操作，进行链表的归并
+    let fakeHead = new ListNode();
+    curr = fakeHead;
+    while (left || right) {
+      if (!right || (left && left.val < right.val)) {
+        curr.next = left;
+        left = left.next;
+      } else {
+        curr.next = right;
+        right = right.next;
+      }
+
+      curr = curr.next;
+    }
+
+    return fakeHead.next;
+  };
+
+  // 这里为啥要统计链表节点的数量
+  // 因为通过数量 n >> 1，计算可得链表前半段的 节点个数
+  // 然后才能将链表从中间拆开成两条链表
+  let n = 0;
+  let curr = head;
+  while (curr) {
+    n++;
+    curr = curr.next;
+  }
+
+  return mergeSort(head, n);
+};
+
+/**
+ *
+ *
+ *
+ * 解法一
+ *
+ * 借鉴快速排序的思想解题
  *
  * 遍历一遍链表，找到 最大值 与 最小值，从而算出中间值
  * 再次遍历链表，以中间值为基准，将链表拆分为独立的两条链表
  * 递归上述过程，然后将拆分的链表再次链接起来，即可得到排序后的链表
  *
  */
-var sortList = function (head) {
+var sortList_1 = function (head) {
   if (!head) return head;
 
   let max = -Infinity;
