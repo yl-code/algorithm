@@ -16,52 +16,47 @@
  *
  *
  */
-var reversePairs = function (nums) {
-  const temp = [];
 
-  // 定义递归函数的返回值为 输入数组的逆序对数量
-  // 思考一下可得
-  // 当前输入的序列的逆序对数量 === 左部分序列逆序对数量 + 右部分序列逆序对数量 + 横跨整个序列的逆序对数量;
-  const reduce = (arr, l, r) => {
-    //
-    // 当区间 [l,r] 不存在时，返回 0
+var reversePairs = function (nums) {
+  const getCount = (arr, l, r) => {
+    // 当数组为空或者只有一个数据的时候，逆序对为 0
     if (l >= r) return 0;
 
-    // 计算 l 与 r 的中间索引值
+    let count = 0;
     const mid = (l + r) >> 1;
 
-    //统计 左部分序列逆序对数量 + 右部分序列逆序对数量
-    let count = 0;
-    count += reduce(arr, l, mid);
-    count += reduce(arr, mid + 1, r);
+    // 拿到左右两边的逆序对数量
+    count += getCount(arr, l, mid);
+    count += getCount(arr, mid + 1, r);
 
+    // 下面进行归并操作，同时搜集横跨整个数组的逆序对数量
     let p1 = l;
     let p2 = mid + 1;
-    let k = l;
+    const temp = [];
     while (p1 <= mid || p2 <= r) {
-      // 程序细节，根据题目要求，逆序对是不包含相等的数字，因此 arr[p1] <= arr[p2]
+      // 题目要求逆序对定义，排除数字相等的情况
       if (p2 > r || (p1 <= mid && arr[p1] <= arr[p2])) {
-        temp[k++] = arr[p1++];
+        temp.push(arr[p1++]);
       } else {
-        temp[k++] = arr[p2++];
-
+        temp.push(arr[p2++]);
         // 统计 横跨整个序列的逆序对数量
         //
         // 为啥在这里统计 ？
         // 逆序对，指的是前面一个数字大于后面的数字
         // 横跨整个序列的逆序对，指的是左部分序列中的数字 大于 右部分序列中的数字
         // 所以当有，右部分序列中的数字被归并时，左部分序列中剩余的数字都是大于该数的
+
         count += mid - p1 + 1;
       }
     }
 
-    // 上面能够统计 横跨整个序列的逆序对数量的基础是，这一步将排过序的数字放回原数组中
+    // 上面能够统计横跨整个数组的逆序对数量的基础是，这一步将排过序的数字放回原数组中
     for (let i = l; i <= r; i++) {
-      arr[i] = temp[i];
+      arr[i] = temp[i - l];
     }
 
     return count;
   };
 
-  return reduce(nums, 0, nums.length - 1);
+  return getCount(nums, 0, nums.length - 1);
 };
