@@ -48,7 +48,6 @@ const twoPartCount = (sum, l1, r1, l2, r2, lower, upper) => {
   // 遍历右半段序列的元素
   for (let b = l2; b <= r2; b++) {
     // 根据上面的思路分析
-    // 通过 sum[b]、upper、lower 三个数字可以计算出 sum[a] 的区间 [min, max)
     let min = sum[b] - upper;
     let max = sum[b] - lower;
 
@@ -56,6 +55,12 @@ const twoPartCount = (sum, l1, r1, l2, r2, lower, upper) => {
     while (p1 <= r1 && sum[p1] < min) p1++;
     while (p2 <= r1 && sum[p2] <= max) p2++;
 
+    // 通过 sum[b]、upper、lower 三个数字可以计算出 sum[a] 的区间 [min, max)
+    // 为什么 最后 sum[p1] >= min，sum[p2] > max
+    // 1、方便 p2 - p1 计算区间中的取值个数
+    // 2、如果得出的区间是 [min, max]，那么计算取值个数时就是 p2 - p1 + 1
+    //   当 p2 与 p1 都越过 r1 区间时，则不存在符合条件的取值，而 p2 - p1 + 1 = 1，结果就会有错误
+    //
     // sum[a] 的所有取值，与 sum[b] 组成的区间，都满足题目要求
     // 统计 sum[a] 的取值个数
     count += p2 - p1;
