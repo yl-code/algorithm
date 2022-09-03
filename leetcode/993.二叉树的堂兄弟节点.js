@@ -5,6 +5,8 @@
  *
  * 思路：
  *    遍历树中的每个节点，记录下来两个目标节点的父节点和它的深度，最后比较一下就行
+ *
+ *    下面采用深搜和广搜两种做法
  */
 
 // @lc code=start
@@ -16,13 +18,68 @@
  *     this.right = (right===undefined ? null : right)
  * }
  */
+
 /**
- * @param {TreeNode} root
- * @param {number} x
- * @param {number} y
- * @return {boolean}
+ *
+ * bfs
+ *
  */
-var isCousins = function (root, x, y) {
+const isCousins = (root, x, y) => {
+  let depth = {};
+  let father = {};
+  bfs(root, x, y, depth, father);
+  return depth[x] === depth[y] && father[x] !== father[y];
+};
+
+const bfs = (root, x, y, depth, father) => {
+  const queue = [
+    {
+      node: root,
+      depth: 0,
+      father: null,
+    },
+  ];
+
+  while (queue.length) {
+    const item = queue.pop();
+
+    if (item.node.val === x) {
+      depth[x] = item.depth;
+      father[x] = item.father;
+    }
+
+    if (item.node.val === y) {
+      depth[y] = item.depth;
+      father[y] = item.father;
+    }
+
+    if (Object.keys(depth).length === 2) break; // 找到了就不找了
+
+    // 下面两个 if 是根据当前节点状态衍生出下一层的节点状态
+    if (item.node.left) {
+      queue.unshift({
+        node: item.node.left,
+        depth: item.depth + 1,
+        father: item.node.val,
+      });
+    }
+
+    if (item.node.right) {
+      queue.unshift({
+        node: item.node.right,
+        depth: item.depth + 1,
+        father: item.node.val,
+      });
+    }
+  }
+};
+
+/**
+ *
+ * dfs
+ *
+ */
+var isCousins_bfs = function (root, x, y) {
   let x_level;
   let y_level;
   let father = {};
