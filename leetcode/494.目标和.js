@@ -30,7 +30,7 @@ var findTargetSumWays = function (nums, target) {
  * @returns
  */
 const dfs = (i, target, nums, map) => {
-  // 当元素下标等于 nums 的长度时，target 为 0 改说明找到一组答案
+  // 当元素下标等于 nums 的长度时，target 为 0 则说明找到一组答案
   if (i === nums.length) return !!(target === 0);
 
   let key = `${i}-${target}`;
