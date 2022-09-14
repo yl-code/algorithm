@@ -42,7 +42,7 @@ const transformRes = (res) => {
  * @param {*} res 结果数组
  */
 const dfs = (row, cb, res) => {
-  cb = cb.map((row) => [...row]); // js 语言特性 需要特殊处理
+  cb = cb.map((row) => [...row]); // js 语言特性 需要特殊处理 断开引用
 
   if (row === cb.length) {
     res.push(cb); // 当所有行都放置皇后，表示找到一组答案
