@@ -8,8 +8,35 @@
 /**
  * @param {number[]} nums
  * @return {boolean}
+ *
+ * 思路：
+ *    i j k
+ *    如果能找到 i 后面，有两个元素均大于 i，且 k 在 j 的右边，k > j，则表示 ikj 满足 132 模式
+ *
+ *    k 和 j 的关系，可以使用单调栈求的
+ *    倒着扫描 nums，枚举每一个 i，并依次压入单调递减栈 s 中，使用 max_k 记录每个被 pop 的元素
+ *    mak_k 其实就是 栈顶元素 右边小于自己的最大值
+ *
+ *    只要能找到 nums[i] 小于 max_k，则表示数组存在 132
  */
 var find132pattern = function (nums) {
+  const s = [];
+  let max_k;
+
+  for (let i = nums.length - 1; i >= 0; i--) {
+    if (s.length && nums[i] < max_k) return true;
+
+    while (s.length && nums[i] > s[s.length - 1]) {
+      max_k = s.pop();
+    }
+
+    s.push(nums[i]);
+  }
+
+  return false;
+};
+
+var find132pattern_1 = function (nums) {
   const s = [];
   const l = [Number.MAX_SAFE_INTEGER]; // 存放每个元素左边的区间中最小的元素
 
