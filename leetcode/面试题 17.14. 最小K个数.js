@@ -1,5 +1,6 @@
 /**
  * 面试题 17.14. 最小K个数
+ * https://leetcode.cn/problems/smallest-k-lcci/
  *
  * 设计一个算法，找出数组中最小的k个数。以任意顺序返回这k个数均可。
  *
@@ -13,7 +14,8 @@ class Heap {
 
   top = () => this.data[0];
 
-  swap = (i, j) => ([this.data[i], this.data[j]] = [this.data[j], this.data[i]]);
+  swap = (i, j) =>
+    ([this.data[i], this.data[j]] = [this.data[j], this.data[i]]);
 
   size = () => this.data.length;
 
