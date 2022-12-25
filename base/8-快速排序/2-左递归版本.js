@@ -23,7 +23,7 @@ const quickSort = (arr, x, y) => {
     // 左递归，指的是左区间继续循环，右区间递归
     // 这样减少了 递归的调用，空间复杂度会降低
     // quickSort(arr, x, l - 1);
-    quickSort(arr, r + 1, y);
+    quickSort(arr, l + 1, y);
 
     y = l - 1;
   }
@@ -52,5 +52,5 @@ const quickSort = (arr, x, y) => {
 // };
 
 const list = [3, 1, 7, 4, 5, 8, 9, 2, 6];
-quickSort(list, 0, 8);
-console.log(list.join());
+quickSort(list, 0, list.length - 1);
+console.log(list.join()); // 1,2,3,4,5,6,7,8,9
