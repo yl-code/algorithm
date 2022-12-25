@@ -16,7 +16,7 @@ const getMid = (a, b, c) => {
 
 const threshold = 16;
 const __quickSort = (arr, l_index, r_index) => {
-  while (l_index - r_index > threshold) {
+  while (r_index - l_index > threshold) {
     // 初始化左右指针
     let l = l_index;
     let r = r_index;
@@ -38,8 +38,8 @@ const __quickSort = (arr, l_index, r_index) => {
 
     // 左递归优化
     // 左区间循环，右区间递归，优化以往左右区间都递归，空间复杂度搞的问题
-    __quickSort(arr, l, y);
-    y = r;
+    __quickSort(arr, l, r_index);
+    r_index = r;
   }
 };
 
@@ -72,6 +72,8 @@ const quickSort = (arr, x, y) => {
   insertSort(arr, x, y);
 };
 
-const list = [7, 3, 1, 4, 5, 8, 9, 2, 6, 3, 1, 7, 4, 5, 8, 9, 2, 6, 3, 1, 7, 4, 5, 8, 9, 2, 6];
-quickSort(list, 0, 26);
-console.log(list.join());
+const list = [
+  7, 3, 1, 4, 5, 8, 9, 2, 6, 3, 1, 7, 4, 5, 8, 9, 2, 6, 3, 1, 7, 4, 5, 8, 9, 2,
+];
+quickSort(list, 0, list.length - 1);
+console.log(list.join()); // 1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,6,6,7,7,7,8,8,8,9,9,9
